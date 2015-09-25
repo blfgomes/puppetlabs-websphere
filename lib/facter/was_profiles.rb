@@ -16,8 +16,26 @@ require 'rexml/document'
 require 'yaml'
 include REXML
 # TODO: see if this can be configurable based on settings::vardir
-was_file = '/var/opt/lib/pe-puppet/facts.d/websphere.yaml'
+#was_file = '/var/opt/lib/pe-puppet/facts.d/websphere.yaml'
+was_file = '/var/lib/puppet/facts.d/websphere.yaml'
 
+# HACK!!
+# Monkey patch (Rubygems 1.3.7 and Ruby 1.8.7 don't go along well in RHEL5 and RHEL6)
+if Facter.value("operatingsystem") == "RedHat" && 
+   Facter.value("operatingsystemmajrelease").to_i < 7 &&
+   ! defined? File.old_read then
+  class << File
+    alias_method :old_read, :read
+
+    def read(name, length={})
+      if length.class == Hash then
+	old_read(name)
+      else
+	old_read(name, length)
+      end
+    end
+  end
+end
 
 if File.exist?(was_file)
   Facter.debug "Found #{was_file}"
