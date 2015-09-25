@@ -95,6 +95,7 @@ define websphere::profile::appserver (
       profile_base => $profile_base,
       profile      => $profile_name,
       dmgr_host    => $dmgr_host,
+      soap_port    => $dmgr_port,
       user         => $user,
       username     => $wsadmin_user,
       password     => $wsadmin_pass,
