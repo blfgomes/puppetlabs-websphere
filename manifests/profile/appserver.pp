@@ -4,6 +4,7 @@ define websphere::profile::appserver (
   $profile_base,
   $cell,
   $node_name,
+  $node_host         = $::fqdn,
   $profile_name      = $title,
   $user              = $::websphere::user,
   $group             = $::websphere::group,
@@ -23,6 +24,7 @@ define websphere::profile::appserver (
   validate_absolute_path($profile_base)
   validate_string($cell)
   validate_string($node_name)
+  validate_string($node_host)
   validate_string($profile_name)
   validate_string($user)
   validate_string($group)
@@ -51,7 +53,7 @@ define websphere::profile::appserver (
   ## Build our installation options if none are profided. These are mostly
   ## similar, but we do add extra to the 'app' profile type. Hackish.
   if ! $options {
-    $_options = "-create -profileName ${profile_name} -profilePath ${profile_base}/${profile_name} -templatePath ${_template_path} -nodeName ${node_name} -hostName ${::fqdn} -federateLater true -cellName standalone"
+    $_options = "-create -profileName ${profile_name} -profilePath ${profile_base}/${profile_name} -templatePath ${_template_path} -nodeName ${node_name} -hostName ${node_host} -federateLater true -cellName standalone"
   } else {
     $_options = $options
   }
