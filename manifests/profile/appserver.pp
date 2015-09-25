@@ -100,6 +100,7 @@ define websphere::profile::appserver (
       username     => $wsadmin_user,
       password     => $wsadmin_pass,
       before       => Websphere::Profile::Service[$title],
+      require      => Exec["was_profile_app_${title}"],
     }
 
     ## Modifying SDK requires federation
