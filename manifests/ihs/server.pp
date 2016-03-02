@@ -96,9 +96,12 @@ define websphere::ihs::server (
 
   service { "${title}_httpd":
     ensure    => 'running',
-    start     => "su - ${user} -c \"${target}/bin/apachectl -k start -f '${_httpd_config}'\"",
-    stop      => "su - ${user} -c \"${target}/bin/apachectl -k stop -f '${_httpd_config}'\"",
-    restart   => "su - ${user} -c \"${target}/bin/apachectl -k restart -f '${_httpd_config}'\"",
+    start     => "${target}/bin/apachectl -k start -f '${_httpd_config}'",
+    stop      => "${target}/bin/apachectl -k stop -f '${_httpd_config}'",
+    restart   => "${target}/bin/apachectl -k restart -f '${_httpd_config}'",
+    #start     => "su - ${user} -c \"${target}/bin/apachectl -k start -f '${_httpd_config}'\"",
+    #stop      => "su - ${user} -c \"${target}/bin/apachectl -k stop -f '${_httpd_config}'\"",
+    #restart   => "su - ${user} -c \"${target}/bin/apachectl -k restart -f '${_httpd_config}'\"",
     hasstatus => false,
     pattern   => "${target}/bin/httpd.*-f ${_httpd_config}",
     provider  => 'base',

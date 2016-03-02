@@ -144,9 +144,12 @@ define websphere::ihs::instance (
   # 'base' as the provider until an upstream answer is retrieved.
   service { "ihs_admin_${title}":
     ensure    => 'running',
-    start     => "su - ${user} -c '${_target}/bin/adminctl start'",
-    stop      => "su - ${user} -c '${_target}/bin/adminctl stop'",
-    restart   => "su - ${user} -c '${_target}/bin/adminctl restart'",
+    #start     => "su - ${user} -c '${_target}/bin/adminctl start'",
+    #stop      => "su - ${user} -c '${_target}/bin/adminctl stop'",
+    #restart   => "su - ${user} -c '${_target}/bin/adminctl restart'",
+    start     => "${_target}/bin/adminctl start",
+    stop      => "${_target}/bin/adminctl stop",
+    restart   => "${_target}/bin/adminctl restart",
     #status   => "su - ${user} -c '${_target}/bin/adminctl status'",
     pattern   => "${target}/bin/httpd -f ${target}/conf/admin.conf",
     hasstatus => false,
