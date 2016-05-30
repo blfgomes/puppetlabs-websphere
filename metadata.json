@@ -1,6 +1,6 @@
 {
   "name": "puppetlabs-websphere",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "puppetlabs",
   "summary": "Manages IBM WebSphere Application Server",
   "license": "Apache-2.0",
