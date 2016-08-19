@@ -57,11 +57,11 @@ class websphere (
   }
 
   ## concat is used to populate a file for facter
-  concat { "${settings::vardir}/facts.d/websphere.yaml":
+  concat { "/etc/facter/facts.d/websphere.yaml":
     ensure => 'present',
   }
   concat::fragment { 'websphere_facts_header':
-    target  => "${settings::vardir}/facts.d/websphere.yaml",
+    target  => "/etc/facter/facts.d/websphere.yaml",
     order   => '01',
     content => "---\nwebsphere_base_dir: ${base_dir}\n",
   }
